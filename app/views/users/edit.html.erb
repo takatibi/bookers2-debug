@@ -1,21 +1,16 @@
-<h2>User info</h2>
-
-<%= form_for(@user) do |f| %>
-
-<!-- エラーメッセージ表示-->
-<% if @user.errors.any? %>
-	<h3><%= @user.errors.count %>error occurrence</h3><!--エラーメッセ-->
-	<ul>
-		<% @user.errors.full_messages.each do |message| %>
+<% @user.errors.full_messages.each do |message| %>
+		error
 		<li><%= message %></li>
-		<% end %>
 	</ul>
 <% end %>
 <!-- エラーメッセージ表示-->
 
+User info
+<%= form_for(@user) do |f| %>
+
 <div class="field">
 	<%= f.label :title %>
-	<%= f.text_field :title, class: "name" %>
+	<%= f.text_field :name, class: "name" %>
 </div>
 
 <div class="field">
@@ -33,3 +28,4 @@
 </div>
 
 <% end %>
+

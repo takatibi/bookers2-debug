@@ -1,3 +1,9 @@
+<% @book.errors.full_messages.each do |message| %>
+		error
+		<li><%= message %></li>
+	</ul>
+<% end %>
+
 <div class="row">
 <div class="col-md-6 col-md-offset-3">
 

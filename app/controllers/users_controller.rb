@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
 	before_action :baria_user, only: [:update]
+  before_action :correct_user, only: [:edit, :update]
 
   def show
   	@user = User.find(params[:id])
@@ -8,20 +10,25 @@ class UsersController < ApplicationController
   end
 
   def index
+    @user = current_user
   	@users = User.all #一覧表示するためにUserモデルのデータを全て変数に入れて取り出す。
-  	@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+  	@book = Book.new
+
+     #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+  end
 
   def edit
   	@user = User.find(params[:id])
   end
 
   def update
-  	@user = User.find(params[:id])
+  	   @user = User.find(params[:id])
   	if @user.update(user_params)
-  		redirect_to users_path(@user), notice: "successfully updated user!"
+      flash[:notice] = "successfully"
+  		redirect_to user_path(@user.id)#保存された場合の移動先を指定。
   	else
-  		render "show"
-  	end
+      render :edit
+    end
   end
 
   private
@@ -36,4 +43,12 @@ class UsersController < ApplicationController
   	end
    end
 
-end
+    
+  def correct_user
+    @user = User.find(params[:id])
+    if current_user != @user
+      redirect_to user_path(current_user)
+    end
+  end
+
+  end

@@ -1,12 +1,20 @@
+<div class="container">
 <div class="row">
 	<div class="col-xs-3">
+	<% @book.errors.full_messages.each do |message| %>
+		<div class="form-error">
+			error
+			<%= message %>
+		</div>
+	<% end %>
 
-		<h2>User info</h2>
-		<%= render 'users/profile', user: current_user %>
 		<!--メモ　右側の指定に注意。そこを間違えるとエラーが発生して表示されない -->
 
-		<h2>New book</h2>
-		<%= render 'books/newform', book: @book %>
+			<%= render 'users/profile' ,user: @user %>
+
+	
+		<%= render 'books/newform' ,book: @book %>
+
 
 	</div>
 
@@ -37,9 +45,6 @@
 				<% end %>
 			</tbody>
 		</table>
-
-		<!--books一覧 -->
-
-
+		</div>
 	</div>
 </div>
